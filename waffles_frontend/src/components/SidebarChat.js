@@ -9,6 +9,8 @@ function SidebarChat({name}) {
         <div className="sidebarChat_info">
           <h2>{name}</h2>
           <p>This is the last message</p>
+
+        <hr />
         </div>
 
     </div>
