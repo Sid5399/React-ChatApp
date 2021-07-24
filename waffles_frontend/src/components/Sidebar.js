@@ -2,7 +2,6 @@ import React from 'react'
 import './Sidebar.css'; 
 import { Avatar, IconButton } from "@material-ui/core";
 import {SearchOutlined, Settings} from "@material-ui/icons";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import SidebarChat from './SidebarChat'
 
@@ -38,6 +37,24 @@ function Sidebar() {
           <SidebarChat name="room1"/> 
           <SidebarChat name="room2"/> 
           <SidebarChat name="room3"/> 
+
+        <SidebarChat name="room1" />
+        <SidebarChat name="room2" />
+        <SidebarChat name="room3" />
+          
+        <SidebarChat name="room1" />
+        <SidebarChat name="room2" />
+        <SidebarChat name="room3" />
+
+        <SidebarChat name="room1" />
+        <SidebarChat name="room2" />
+        <SidebarChat name="room3" />
+
+        <SidebarChat name="room1" />
+        <SidebarChat name="room2" />
+        <SidebarChat name="room3" />
+
+
         </div>
     </div>
     );

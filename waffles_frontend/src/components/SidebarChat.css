@@ -5,6 +5,10 @@
   align-items: center;
   /* border-bottom: 2px solid #655889; */
 }
+.avatar{
+  margin-left: 1.2vh;
+  margin-right: 1.2vh;
+}
 
 .sidebarChat:hover {
   background-color: #efaa86;
@@ -23,9 +27,12 @@
 }
 
 .sidebarChat_info{
-    margin-left: 15px;
+    margin-left: 2vh;
 }
 
-.sidebarChat_info > hr{
+.sidebarChat_container > hr{
   color: #655889;
+  margin-left: 11vh;
+  margin-right: 2vh;
 }
+
