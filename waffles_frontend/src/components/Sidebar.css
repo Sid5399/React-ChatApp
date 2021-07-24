@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  min-height: 10%;
 }
 
 .sidebar_search {
@@ -18,7 +19,7 @@
   background-color: #4e426d ;
   height: 39px;
   padding: 10px;
-  
+  min-height: 10%;
 }
 
 .sidebar_searchContainer{
@@ -61,5 +62,25 @@
 .sidebar_chats {
   flex: 1;
   background-color: #8675A9;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 68%;
+  border-radius: 4vh;
+  margin: 1.7vh;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-color: black white;
 }
+
+.sidebar_chats::-webkit-scrollbar {
+  width: 5px;
+  display: none;
+}
+
+/* 
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(transparent, #efaa86);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(transparent, #716F81);
+} */
