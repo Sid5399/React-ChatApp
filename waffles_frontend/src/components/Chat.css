@@ -87,9 +87,13 @@ ul li {
 
   overflow-x: hidden;
   overflow-y: auto;
+<<<<<<< HEAD
   height: 73%;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-color: black white;
+=======
+  height: 70%;
+>>>>>>> fa9a95ac4344c7be1cc4ff68d840671cf76ba3b7
   border-top: 2px solid #655889;
   /* border-bottom: 2px solid #655889; */
 }
@@ -113,7 +117,10 @@ ul li {
   background-color: white;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa9a95ac4344c7be1cc4ff68d840671cf76ba3b7
 .chat_message {
   position: relative;
   font-size: 16px;
