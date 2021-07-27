@@ -6,6 +6,7 @@ import {SearchOutlined, Settings} from "@material-ui/icons";
 import db from '../firebase';
 import SidebarChat from './SidebarChat'
 import { useStateValue } from '../StateProvider';
+// import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 
 function Sidebar() {
@@ -34,39 +35,28 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-
-        <div className="sidebar_header">
-          {/* <h2> i am header</h2> */}
-          
-          <Avatar src={user?.photoURL}/>
-          
-          <IconButton>
-            <Settings />
-          </IconButton>
-
-        
-        </div>
+      {/* <div className="sidebar_header">
 
 
-        <div className="sidebar_search">
-        
-        
+      </div> */}
+
+      <div className="sidebar_search">
         <div className="sidebar_searchContainer">
           <SearchOutlined />
           <input type="text" placeholder="SEARCH" />
-         </div>
+          
         </div>
+        <SidebarChat class="addChat_Btn" addNewChat />
+      </div>
 
-        <div className="sidebar_chats">
-          <SidebarChat addNewChat />
-          {
-            rooms.map(room => (
-              <SidebarChat key={room.id} id={room.id} name={room.data.name}/>
-            ))
-          }
-        </div>
+      <div className="sidebar_chats">
+        {/* <SidebarChat addNewChat /> */}
+        {rooms.map((room) => (
+          <SidebarChat key={room.id} id={room.id} name={room.data.name} />
+        ))}
+      </div>
     </div>
-    );
+  );
 }
 
 export default Sidebar

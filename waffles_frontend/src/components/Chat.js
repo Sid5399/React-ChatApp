@@ -8,7 +8,6 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import ExpandLessSharpIcon from '@material-ui/icons/ExpandLessSharp';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 // import { Button } from 'react-bootstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
@@ -45,54 +44,26 @@ function Chat() {
 
   const sendMessage = (e) => {
     e.preventDefault();
+    
     console.log(" You typed >>>", input);
 
-    db.collection('Rooms').doc(roomId).collection('messages').add({
-      message: input,
-      name: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  });
+    
 
+    if (input != "") {
+      db.collection('Rooms').doc(roomId).collection('messages').add({
+        message: input,
+        name: user.displayName,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    } else {
+      console.log("Empty message")
+    }
     setInput("");
   }
 
-  const sendMessage_enter = (e) => {
-    e.preventDefault();
-    console.log(" You typed >>>", input);
-
-    db.collection('Rooms').doc(roomId).collection('messages').add({
-      message: input,
-      name: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  });
-
-    setInput("");
-  }
 
   return (
     <div className="chat">
-      <div className="app_bar">
-        <ul className="options_list">
-          <li>
-            HOME
-            {/* <hr/> */}
-          </li>
-          <li>CONTACTS</li>
-          <li>SETTINGS</li>
-          <li>
-            <div class="dropdown">
-              <Dropdown className="app_bar_dropdown">
-                <Dropdown.Toggle variant="success">Menu</Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#">Home Page</Dropdown.Item>
-                  <Dropdown.Item href="#">Settings</Dropdown.Item>
-                  <Dropdown.Item href="#">Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </li>
-        </ul>
-      </div>
 
       <div className="chat_window">
         <div className="chat_header">
@@ -142,7 +113,7 @@ function Chat() {
         </div>
 
         <div className="chat_footer">
-          <form onSubmit={sendMessage_enter} 
+          <form onSubmit={sendMessage} 
                className="message_form">
             <button className="emoji_button">
               <InsertEmoticonIcon />
@@ -160,7 +131,7 @@ function Chat() {
             <button
               className="form_sendButton"
               type="submit"
-              onClick={sendMessage_enter}
+              onClick={sendMessage}
             >
               Send
             </button>

@@ -3,6 +3,8 @@ import { Avatar } from '@material-ui/core';
 import './SidebarChat.css';
 import db from '../firebase';
 import  { Link } from "react-router-dom";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 
 function SidebarChat({addNewChat, id, name}) {
   const [seed, setSeed] = useState("");
@@ -53,8 +55,8 @@ function SidebarChat({addNewChat, id, name}) {
 
       </Link>
        ) : (
-        <div onClick={createChat} className="sidebarChat">
-            <h3 className="add-new-chat-title">Add New Chat</h3>
+        <div onClick={createChat} className="sidebarChat_Btn">
+            <h3 className="add-new-chat-title"> {<PersonAddIcon />} </h3>
         </div>
     );
 }
