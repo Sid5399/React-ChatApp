@@ -4,8 +4,18 @@ import './SidebarChat.css';
 import db from '../firebase';
 import  { Link } from "react-router-dom";
 
-function SidebarChat({id, name}) {
+function SidebarChat({addNewChat, id, name}) {
   const [seed, setSeed] = useState("");
+  const [messages, setMessages] = useState("");
+ 
+  useEffect(() => {
+    if(id){
+        db.collection('Rooms').doc(id).collection('messages').orderBy('timestamp','desc').onSnapshot(snapshot => {
+            setMessages(snapshot.docs.map((doc) => doc.data()))
+        })
+
+    }
+  }, [id]);
 
   useEffect(()=> {
     setSeed(Math.floor(Math.random() * 5000));
@@ -21,7 +31,7 @@ function SidebarChat({id, name}) {
     }
   };
 
-    return (
+    return  !addNewChat ? (
       <Link to={`/rooms/${id}`}>
 
         <div className="sidebarChat_container">
@@ -32,14 +42,20 @@ function SidebarChat({id, name}) {
           />
           <div className="sidebarChat_info">
             <h2>{name}</h2>
-            <p>This is the last message</p>
+            <p>{
+              messages[0]?.message.length>40 ? messages[0]?.message.slice(0,40)  + " ..." : messages[0]?.message
+            
+            }</p>
           </div>
         </div>
         <hr/>
       </div>
 
       </Link>
-
+       ) : (
+        <div onClick={createChat} className="sidebarChat">
+            <h3 className="add-new-chat-title">Add New Chat</h3>
+        </div>
     );
 }
 

@@ -12,6 +12,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import db from '../firebase';
+import {useStateValue} from "../StateProvider";
+import firebase from 'firebase';
 
 
 function Chat() {
@@ -28,7 +30,7 @@ function Chat() {
             setRoomName(snapshot.data().name);
         });
 
-        console.log(roomName)
+        // console.log(roomName)
         db.collection('Rooms').doc(roomId).collection("messages").orderBy("timestamp","asc").onSnapshot(snapshot => {
             setMessages(snapshot.docs.map(doc => doc.data()))
         });
@@ -36,120 +38,142 @@ function Chat() {
     }
 },[roomId])
 
+
   useEffect( ()=> {
-    setSeed(Math.floor(Math.random() *5000))
-  },[roomId])
+    setSeed(Math.floor(Math.random() *5000));
+  },[roomId]);
 
   const sendMessage = (e) => {
     e.preventDefault();
     console.log(" You typed >>>", input);
 
+    db.collection('Rooms').doc(roomId).collection('messages').add({
+      message: input,
+      name: user.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+
     setInput("");
   }
 
-  const sendMessage_two = (e) => {
+  const sendMessage_enter = (e) => {
     e.preventDefault();
     console.log(" You typed >>>", input);
 
+    db.collection('Rooms').doc(roomId).collection('messages').add({
+      message: input,
+      name: user.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+
     setInput("");
   }
 
-    return (
-        <div className="chat">
-            <div className="app_bar">
-                <ul className="options_list">
-                    <li>HOME
-                      {/* <hr/> */}
-                    </li>
-                    <li>CONTACTS</li>
-                    <li>SETTINGS</li>
-                    <li>
-                    <div class="dropdown">
-                            <Dropdown className="app_bar_dropdown">
-                              <Dropdown.Toggle variant="success">
-                                Menu
-                              </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                                <Dropdown.Item href="#">
-                                  Home Page
-                                </Dropdown.Item>
-                                <Dropdown.Item href="#">
-                                  Settings
-                                </Dropdown.Item>
-                                <Dropdown.Item href="#">
-                                  Logout
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                    </div>
-                    </li>
-                </ul>
+  return (
+    <div className="chat">
+      <div className="app_bar">
+        <ul className="options_list">
+          <li>
+            HOME
+            {/* <hr/> */}
+          </li>
+          <li>CONTACTS</li>
+          <li>SETTINGS</li>
+          <li>
+            <div class="dropdown">
+              <Dropdown className="app_bar_dropdown">
+                <Dropdown.Toggle variant="success">Menu</Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#">Home Page</Dropdown.Item>
+                  <Dropdown.Item href="#">Settings</Dropdown.Item>
+                  <Dropdown.Item href="#">Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
+          </li>
+        </ul>
+      </div>
 
-            <div className="chat_window">
+      <div className="chat_window">
+        <div className="chat_header">
+          <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
 
-            <div className="chat_header">
-                <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
+          <div className="chat_headerInfo">
+            <h3 className="chat-room-name">{roomName}</h3>
+            <p className="chat-room-last-seen"> 
+                {
+                 messages.length > 0 ?  
+                 "Last seen: " + 
+                new Date(
+                    messages[messages.length - 1]?.
+                    timestamp?.toDate()
+                ).toUTCString()
+                 : " No messages available yet"
+                }
+            </p>
+          </div>
 
-              <div className="chat_headerInfo">
-                <h3 className="chat-room-name">{roomName}</h3>
-                <p className="chat-room-last-seen">Last seen at...</p>
-              </div>
-
-              <div className="chat_headerRight">
-                <IconButton>
-                  <SearchOutlined/>
-                </IconButton>
-                <IconButton>
-                  <AttachFile/>
-                </IconButton>
-                <IconButton>
-                  <MoreVert/>
-                </IconButton>
-              </div>
-            </div>
-
-            <div className="chat_body">
-
-              {/* {console.log(messages)} */}
-
-              {messages.map(message => (
-                 <p className={`chat_message`}>
-                 <span className="chat_name">{message.name}</span>
-                 {message.message}
-                 <span className="chat_timestamp">
-                 {new Date(messages.timestamp?.toDate()).toUTCString()}
-                 </span>
-               </p>
-              ))}
-             
-
-            </div>
-
-            <div className="chat_footer">
-              
-              <form className="message_form">
-
-                <button className="emoji_button">
-                  <InsertEmoticonIcon />
-                </button>
-                  <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Type a message" />
-                  {/* <MicIcon /> */}
-                  <button className="emoji_button2">
-                  <AttachFileIcon />
-                </button>
-                <button className="form_sendButton" type="submit" onClick={sendMessage_two}>
-                  Send
-                </button >
-              </form>
-
-              <button className="sendButton" onClick={sendMessage}> <ExpandLessSharpIcon/> </button>     
-              
-            </div>
-
+          <div className="chat_headerRight">
+            <IconButton>
+              <SearchOutlined />
+            </IconButton>
+            <IconButton>
+              <AttachFile />
+            </IconButton>
+            <IconButton>
+              <MoreVert />
+            </IconButton>
           </div>
         </div>
-    )
+
+        <div className="chat_body">
+
+          {messages.map((message) => (
+            <p key={message.id} className={`chat_message ${message.name === user.displayName && "chat_receiver"}`}>
+              <span className="chat_name">{message.name}</span>
+              {message.message}
+              <span className="chat_timestamp">
+                {new Date(message.timestamp?.toDate()).toUTCString()}
+              </span>
+            </p>                               
+          ))}
+
+          {/* <button className="scroll_downBtn">down</button>  */}
+        </div>
+
+        <div className="chat_footer">
+          <form onSubmit={sendMessage_enter} 
+               className="message_form">
+            <button className="emoji_button">
+              <InsertEmoticonIcon />
+            </button>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+              placeholder="Type a message"
+            />
+            {/* <MicIcon /> */}
+            <button className="emoji_button2">
+              <AttachFileIcon />
+            </button>
+            <button
+              className="form_sendButton"
+              type="submit"
+              onClick={sendMessage_enter}
+            >
+              Send
+            </button>
+          </form>
+
+          <button className="sendButton" onClick={sendMessage}>
+            <ExpandLessSharpIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 
 export default Chat

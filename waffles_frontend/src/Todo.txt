@@ -1,0 +1,12 @@
+FUNCTIONALITY:
+
+2) Chat.js:
+   instead of user.displayName   //Change this to get individual id. (same names)
+
+4) Display roomNames sorted by latest messages/rooms created.
+
+5) chat window: Window scroll on new message
+
+
+
+

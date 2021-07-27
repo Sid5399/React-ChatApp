@@ -87,13 +87,7 @@ ul li {
 
   overflow-x: hidden;
   overflow-y: auto;
-<<<<<<< HEAD
-  height: 73%;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-color: black white;
-=======
   height: 70%;
->>>>>>> fa9a95ac4344c7be1cc4ff68d840671cf76ba3b7
   border-top: 2px solid #655889;
   /* border-bottom: 2px solid #655889; */
 }
@@ -117,10 +111,6 @@ ul li {
   background-color: white;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fa9a95ac4344c7be1cc4ff68d840671cf76ba3b7
 .chat_message {
   position: relative;
   font-size: 16px;
@@ -173,6 +163,7 @@ ul li {
   border-radius: 30px;
   padding: 10px;
   border: none;
+  outline: none;
   margin: 0px 10px 0px 10px;
 }
 
@@ -181,7 +172,6 @@ ul li {
   background-color: #38255f;
   color: white;
   border: none;
-  /* border: 2px solid black; */
   border-radius: 50%;
   margin-left: 0.5vh;
   padding: 1vh;
@@ -191,7 +181,6 @@ ul li {
 .message_form {
   background-color: white;
   border-radius: 4vh;
-  /* margin-right: 100px; */
   padding-top: 1vh;
   padding-bottom: 0.5vh;
   margin-left: 2.5vh;
@@ -217,3 +206,8 @@ ul li {
 .form_sendButton{
   display: none;
 }
+
+/* .scroll_downBtn{
+  position: relative;
+  bottom: 100px;
+} */

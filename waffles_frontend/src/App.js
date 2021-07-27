@@ -8,7 +8,6 @@ import Login from './components/Login'
 
 
 function App() {
-  // const [user, setUser] = useState(null);
 
   const [{user}, dispatch] = useStateValue();
 
