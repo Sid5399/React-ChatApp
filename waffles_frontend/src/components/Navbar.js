@@ -6,6 +6,7 @@ import { Avatar } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import InfoIcon from '@material-ui/icons/Info';
+import {Link} from 'react-router-dom';
 
 function Navbar() {
 
@@ -43,7 +44,7 @@ function Navbar() {
                     <Dropdown.Toggle variant="success">MORE</Dropdown.Toggle>
                     <Dropdown.Menu>
                     <Dropdown.Item href="#">Settings</Dropdown.Item>
-                    <Dropdown.Item href="#">Logout</Dropdown.Item>
+                  <Dropdown.Item href="http://localhost:3000/">Logout</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 </div>

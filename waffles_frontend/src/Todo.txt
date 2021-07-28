@@ -11,9 +11,9 @@ LONG TERM PLANS:
 IMMEDIATE CHANGES:
 
 *chat window: Window scroll on new message.
-*Nav bar: Routing.
 *Avatar nect to sent message.
 *Fixed timestamp.
+*Nav bar: Routing. // set default url 
 
 
 

@@ -101,8 +101,9 @@ function Chat() {
 
           {messages.map((message) => (
             <p key={message.id} className={`chat_message ${message.name === user.displayName && "chat_receiver"}`}>
-              <span className="chat_name">{message.name}</span>
+              <span className="chat_name">{message.name === user.displayName ? "You " :message.name}</span>
               {message.message}
+              <br/>
               <span className="chat_timestamp">
                 {new Date(message.timestamp?.toDate()).toUTCString()}
               </span>
